@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>dummytitle</title>
+<script src="../data/folders.js"></script>
+<script>
+	// set title as folder name
+	var path = location.pathname;
+	var pathinfo = path.split('/');
+	var filename = pathinfo.pop();
+	var foldername = pathinfo.pop().replace(/%20/g, " ");
+	document.title = foldername;
+
+	var mangafolder = GetCookie('mangafolder');
+	document.write('<script type="text/javascript" src="../data/' + mangafolder +'/pages.js"><\/script>');
+	
+/*
+	//pages.js is doing
+	var pagefile = new Array(); 
+	pagefile[0] = "1.jpg";
+*/
+
+	function viewmanga(x){
+		mangafolder = x;	
+		document.cookie='mangafolder=' + encodeURIComponent(mangafolder);
+		location.reload();
+	}
+
+	var pagenum = 0;
+
+	function reWrite(x) {
+
+		if      (x == 1)  pagenum++ ;
+		else if (x == -1) pagenum-- ;
+		else                        ;
+	
+		if (pagenum < 0)                   pagenum = pagefile.length - 1 ;
+		if (pagenum > pagefile.length - 1) pagenum = 0 ;
+
+		document.getElementById("str").innerHTML=
+			'<img src="../data/' + 
+			mangafolder +
+			'/' + 
+			pagefile[pagenum] + 
+			'" style="width\:auto;height:auto;">'
+			;
+	}
+
+function GetCookie( name )
+{
+    var result = null;
+
+    var cookieName = name + '=';
+    var allcookies = document.cookie;
+
+    var position = allcookies.indexOf( cookieName );
+    if( position != -1 )
+    {
+        var startIndex = position + cookieName.length;
+
+        var endIndex = allcookies.indexOf( ';', startIndex );
+        if( endIndex == -1 )
+        {
+            endIndex = allcookies.length;
+        }
+
+        result = decodeURIComponent(
+            allcookies.substring( startIndex, endIndex ) );
+    }
+
+    return result;
+}
+
+</script>
+</head>
+<body>
+<script>
+        for (i=0; i < folders.length ; i++)
+                {
+                        document.write('<div id="view" onclick=\'viewmanga("../data/' + folders[i] + '")\'>' + folders[i] + '</div><br>');
+                }
+</script>
+<table width="100%">
+	<tr>
+		<td id="back" onclick="reWrite(-1)">
+			戻る
+		</td>
+		<td align="right">
+			<div id="next" onclick="reWrite(1)">次</div>
+		</td>
+	</tr>
+</table>
+
+<div id="str" >
+	<script>
+		document.write(
+			'<img src="../data/' + 
+			mangafolder + 
+			'/' + 
+			pagefile[pagenum] + 
+			'" style="width\:auto;height:auto%;">'
+		);
+	</script>
+</div>
+
+<table width="100%">
+	<tr>
+		<td>
+			<div id="back" onclick="reWrite(-1)">戻る</div>
+		</td>
+		<td align="right">
+			<div id="next" onclick="reWrite(1)">次</div>
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>
+
