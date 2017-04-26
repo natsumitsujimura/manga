@@ -2,19 +2,38 @@
 <html>
 <head>
 <meta charset="utf-8">
+
+<style type="text/css">
+	td.back{
+		width:50%;
+		background:red;
+	}
+	td.next{
+		width:50%;
+		background:green;
+		text-align:right;
+	}
+</style>
+
 <title>dummytitle</title>
+
 <script src="../data/folders.js"></script>
+
 <script>
-	// set title as folder name
+	// set title as program folder name
 	var path = location.pathname;
 	var pathinfo = path.split('/');
 	var filename = pathinfo.pop();
 	var foldername = pathinfo.pop().replace(/%20/g, " ");
 	document.title = foldername;
 
+	// get target folder from Cookie and load pages.js from the folder
 	var mangafolder = GetCookie('mangafolder');
 	document.write('<script type="text/javascript" src="../data/' + mangafolder +'/pages.js"><\/script>');
 	
+	// set title as manga folder name
+	document.title = mangafolder;
+
 /*
 	//pages.js is doing
 	var pagefile = new Array(); 
@@ -78,16 +97,16 @@ function GetCookie( name )
 <script>
         for (i=0; i < folders.length ; i++)
                 {
-                        document.write('<div id="view" onclick=\'viewmanga("../data/' + folders[i] + '")\'>' + folders[i] + '</div><br>');
+                        document.write('<div id="view" onclick=\'viewmanga("' + folders[i] + '")\'>' + folders[i] + '</div><br>');
                 }
 </script>
 <table width="100%">
 	<tr>
-		<td id="back" onclick="reWrite(-1)">
-			戻る
+		<td class="back">
+			<div onclick="reWrite(-1)">戻る</div>
 		</td>
-		<td align="right">
-			<div id="next" onclick="reWrite(1)">次</div>
+		<td class="next">
+			<div onclick="reWrite(1)">次</div>
 		</td>
 	</tr>
 </table>
@@ -106,11 +125,11 @@ function GetCookie( name )
 
 <table width="100%">
 	<tr>
-		<td>
-			<div id="back" onclick="reWrite(-1)">戻る</div>
+		<td class="back">
+			<div onclick="reWrite(-1)">戻る</div>
 		</td>
-		<td align="right">
-			<div id="next" onclick="reWrite(1)">次</div>
+		<td class="next">
+			<div onclick="reWrite(1)">次</div>
 		</td>
 	</tr>
 </table>
