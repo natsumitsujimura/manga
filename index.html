@@ -73,13 +73,13 @@
 
 	function show_page(){
 		var str = 
-			'<table width="100%"><tr><td class="back"><div onclick="reWrite(-1)">戻る</div></td><td class="next"><div onclick="reWrite(1)">次</div></td></tr></table>' +
+			'<table width="100%"><tr><td class="back"><div onclick="reWrite(-1)">前ページ</div></td><td class="next"><div onclick="reWrite(1)">次ページ</div></td></tr></table>' +
 			'<img src="./data/' + 
 			mangafolder +
 			'/' + 
 			pagefile[pagenum] + '" ' +
 			'style="width\:100%;height\:auto;">' +
-			'<table width="100%"><tr><td class="back"><div onclick="reWrite(-1)">戻る</div></td><td class="next"><div onclick="reWrite(1)">次</div></td></tr></table>' 
+			'<table width="100%"><tr><td class="back"><div onclick="reWrite(-1)">前ページ</div></td><td class="next"><div onclick="reWrite(1)">次ページ</div></td></tr></table>' 
 			;
 		document.getElementById("str").innerHTML=str;
 	}
@@ -89,9 +89,10 @@
 
 <script>
 	if(view_status == 'folder_listing'){
+		document.write('<img src="./data/lina.jpg" style="display:block;margin-left:auto;margin-right:auto;width:50%;height:auto;">');
 		for (i=0; i < folders.length ; i++)
 			{
-				document.write('<div id="view" onclick=\'manga_listing("' + folders[i] + '")\'>' + folders[i] + '</div>');
+				document.write('<div id="view" onclick=\'manga_listing("' + folders[i] + '")\'><h1>' + folders[i] + '</h1></div>');
 			}
 	}
 </script>
@@ -100,7 +101,7 @@
 
 <script>
 	if(view_status == 'manga_reading'){
-		document.write('<table width="100%"><tr><td><div onclick="folder_listing()">書名一覧に戻る</div></td></tr></table>');
+		document.write('<table width="100%"><tr><td><div onclick="folder_listing()"><h1>書名一覧に戻る</h1></div></td></tr></table>');
 	}
 </script>
 
