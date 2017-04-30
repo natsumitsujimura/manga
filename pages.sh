@@ -3,7 +3,7 @@ cd "$*"
 ls > .temp
 awk -f - .temp <<EOS > pages.js
 BEGIN{
-	print "var pagefile = new Array();";
+	print "//var pagefile = new Array();";
 	count = 0;
 }
 /jpg$/{
