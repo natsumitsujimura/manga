@@ -1,5 +1,5 @@
 #!/bin/sh
-cd ../data
+cd ./data
 find . -maxdepth 1 -type d | sed -e 's/^\.\///' > .temp
 awk -f - .temp << EOS > folders.js
 BEGIN{
