@@ -1,12 +1,15 @@
 td.back{
-	width:50%;
-	color:white;
-	background:red;
+        width:50%;
+        color:white;
+        background:red;
 }
 td.next{
-	width:50%;
-	color:white;
-	background:green;
-	text-align:right;
+        width:50%;
+        color:white;
+        background:blue;
+        text-align:right;
+}
+img.thumbnail{
+        vertical-align: top;
 }
 

@@ -7,6 +7,25 @@
 
 <link rel="stylesheet" type="text/css" href="page.css">
 
+<!-- don't read. I don't know why.
+<style type="text/css">
+td.back{
+        width:50%;
+        color:white;
+        background:red;
+}
+td.next{
+        width:50%;
+        color:white;
+        background:blue;
+        text-align:right;
+}
+img.thumbnail{
+	vertical-align: top;
+}
+</style>
+-->
+
 </head>
 <body>
 
@@ -56,6 +75,7 @@ Goto page<br>
 				pagefile[pagenum] + '" ' +
 				'style="width\:100%;height\:auto;">'
 				;
+			window.scrollTo(0,0);
 			document.getElementById("page").innerHTML=str;
 			document.getElementById("pagenum").innerHTML=pagenum;
 	}
@@ -66,13 +86,15 @@ Goto page<br>
 		for(var i = 0; i < pagefile.length ; i ++){
 			//strThumbnail += '<span onclick="pageJump(' + i + ')"> ' + i + ' /</span>';
 			strThumbnail += 
+					'<nobr>' +
 					i +
 					'<img src="./data/' + 
 					mangafolder +
 					'/thumbnail/' + 
 					pagefile[i] + '" ' +
 					'style="width\:auto;height\:auto;"' +
-					'onclick="pageJump(' + i + ')"> '
+					'onclick="pageJump(' + i + ')" class="thumbnail">' +
+					'</nobr>'
 					;
 
 		}
