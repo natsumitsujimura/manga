@@ -1,0 +1,10 @@
+td.back{
+	width:50%;
+	background:red;
+}
+td.next{
+	width:50%;
+	background:green;
+	text-align:right;
+}
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="index.css">
+
+</head>
+<body>
+<table width="100%"><tr><td class="back"><div onclick="pageUpDown(-1)">前ページ</div></td><td class="next"><div onclick="pageUpDown(1)">次ページ</div></td></tr></table>
+<div id="page"></div>
+<table width="100%"><tr><td class="back"><div onclick="pageUpDown(-1)">前ページ</div></td><td class="next"><div onclick="pageUpDown(1)">次ページ</div></td></tr></table>
+
+current page is <span id="pagenum">page</span>.
+Go to <span onclick="pageJump()"><select id="select">selector</select></span>page
+
+</body>
+<script src="GetCookie.js"></script>
+
+<script>
+	// get target folder from Cookie and load pages.js from the folder
+	var mangafolder = GetCookie('mangafolder');
+	document.write('<script src="./data/' + mangafolder +'/pages.js"><\/script>');
+	document.title = mangafolder;
+</script>
+<script>
+	var pagenum = 0;
+
+	function pageUpDown(x) {
+
+		if      (x == 1)  pagenum++ ;
+		else if (x == -1) pagenum-- ;
+		else                        ;
+	
+		if (pagenum < 0)                   pagenum = pagefile.length - 1 ;
+		if (pagenum > pagefile.length - 1) pagenum = 0 ;
+		
+		show_page();
+	}
+
+
+	function show_page(){
+			var str = 
+				'<img src="./data/' + 
+				mangafolder +
+				'/' + 
+				pagefile[pagenum] + '" ' +
+				'style="width\:100%;height\:auto;">'
+				;
+			document.getElementById("page").innerHTML=str;
+			document.getElementById("pagenum").innerHTML=pagenum;
+	}
+
+setSelectNumber();
+
+function setSelectNumber(){
+        var selectElement = document.getElementById("select");
+        for(var i = 0; i < pagefile.length ; i ++){
+                var option = document.createElement("option");
+                option.value = i;
+                option.innerText = i;
+                selectElement.appendChild(option);
+        }
+}
+
+function pageJump(){
+        var selectElement = document.getElementById("select");
+        var option = selectElement.options;
+        var Idx = selectElement.selectedIndex;
+        pagenum = option[Idx].value;
+	show_page();
+}
+
+</script>
+<script>
+show_page();
+</script>
+</html>
+

@@ -10,112 +10,43 @@
 <meta property="fb:admins" content="Natsumi Tsujimura"/>
 <meta property="og:site_name" content="まんがライブラリ"/>
 
-<style type="text/css">
-	td.back{
-		width:50%;
-		background:red;
-	}
-	td.next{
-		width:50%;
-		background:green;
-		text-align:right;
-	}
-</style>
+<title></title>
 
-<title>dummytitle</title>
+<link rel="stylesheet" type="text/css" href="index.css">
 
+</head>
+<body>
+
+<img src="./data/lina.jpg" style="display:block;margin-left:auto;margin-right:auto;width:50%;height:auto;">
+<div id="folderList">[作者] タイトル</div>
+
+</body>
+
+<!-- folder index read -->
 <script src="./data/folders.js"></script>
-<script src="GetCookie.js"></script>
 
 <script>
-	var view_status = GetCookie('view_status');
-		// folder_listing
-		// manga_listing
-		// manga_reading
+	// sample ./data/folders.js
+	//	var folders = new Array();
+	//	folders[0] = "[作者] タイトル";
 
-	if ( !view_status ) {view_status = 'folder_listing';}
-
-	var pagefile = new Array();
-	var pagenum = 0;
-
-	// set title as program folder name
-	var path = location.pathname;
-	var pathinfo = path.split('/');
-	var filename = pathinfo.pop();
-	var foldername = pathinfo.pop().replace(/%20/g, " ");
-	document.title = foldername;
-
-	// get target folder from Cookie and load pages.js from the folder
-	if(view_status == 'manga_listing'){
-		var mangafolder = GetCookie('mangafolder');
-		document.write('<script type="text/javascript" src="./data/' + mangafolder +'/pages.js"><\/script>');
-		document.cookie='view_status=manga_reading';
-		view_status = 'manga_reading';
-		document.title = mangafolder;
+	var folderList = '<h1>';
+	for (i=0; i < folders.length ; i++){
+		folderList += 
+			'<div id="view" onclick=\'manga_listing("' + folders[i] + '")\'>' + 
+			folders[i] + 
+			'</div>'
+			;
 	}
+	folderList += '</h1>';
 
-	function folder_listing(){
-		document.cookie='view_status=folder_listing';
-		location.reload();
-	}
+	document.getElementById("folderList").innerHTML=folderList;
+
 
 	function manga_listing(x){
 		mangafolder = x;	
 		document.cookie='mangafolder=' + encodeURIComponent(mangafolder);
-		document.cookie='view_status=manga_listing';
-		location.reload();
-	}
-
-	function reWrite(x) {
-
-		if      (x == 1)  pagenum++ ;
-		else if (x == -1) pagenum-- ;
-		else                        ;
-	
-		if (pagenum < 0)                   pagenum = pagefile.length - 1 ;
-		if (pagenum > pagefile.length - 1) pagenum = 0 ;
-		
-		show_page();
-	}
-
-	function show_page(){
-		var str = 
-			'<table width="100%"><tr><td class="back"><div onclick="reWrite(-1)">前ページ</div></td><td class="next"><div onclick="reWrite(1)">次ページ</div></td></tr></table>' +
-			'<img src="./data/' + 
-			mangafolder +
-			'/' + 
-			pagefile[pagenum] + '" ' +
-			'style="width\:100%;height\:auto;">' +
-			'<table width="100%"><tr><td class="back"><div onclick="reWrite(-1)">前ページ</div></td><td class="next"><div onclick="reWrite(1)">次ページ</div></td></tr></table>' 
-			;
-		document.getElementById("str").innerHTML=str;
-	}
-</script>
-</head>
-<body>
-
-<script>
-	if(view_status == 'folder_listing'){
-		document.write('<img src="./data/lina.jpg" style="display:block;margin-left:auto;margin-right:auto;width:50%;height:auto;">');
-		for (i=0; i < folders.length ; i++)
-			{
-				document.write('<div id="view" onclick=\'manga_listing("' + folders[i] + '")\'><h1>' + folders[i] + '</h1></div>');
-			}
-	}
-</script>
-
-<div id="str"></div>
-
-<script>
-	if(view_status == 'manga_reading'){
-		document.write('<table width="100%"><tr><td><div onclick="folder_listing()"><h1>書名一覧に戻る</h1></div></td></tr></table>');
-	}
-</script>
-
-</body>
-<script>
-	if(view_status == 'manga_reading'){
-		show_page();
+		location.href='./page.html';
 	}
 </script>
 </html>
