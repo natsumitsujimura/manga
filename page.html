@@ -5,18 +5,25 @@
 
 <title></title>
 
-<link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="page.css">
 
 </head>
 <body>
-<table width="100%"><tr><td class="back"><div onclick="pageUpDown(-1)">前ページ</div></td><td class="next"><div onclick="pageUpDown(1)">次ページ</div></td></tr></table>
-<div id="page"></div>
-<table width="100%"><tr><td class="back"><div onclick="pageUpDown(-1)">前ページ</div></td><td class="next"><div onclick="pageUpDown(1)">次ページ</div></td></tr></table>
 
-current page is <span id="pagenum">page</span>.
-Go to <span onclick="pageJump()"><select id="select">selector</select></span>page
+<table width="100%"><tr><td class="back"><div onclick="pageUpDown(-1)">back</div></td><td class="next"><div onclick="pageUpDown(1)">next</div></td></tr></table>
+
+<div id="page"></div>
+
+<table width="100%"><tr><td class="back"><div onclick="pageUpDown(-1)">back</div></td><td class="next"><div onclick="pageUpDown(1)">next</div></td></tr></table>
+
+current page is <span id="pagenum">pagenum</span>.<br>
+Goto page<br>
+<div id="thumbnail">thumbnail</div>
+
+<a href="index.html"><h1>back to index</h1></a>
 
 </body>
+
 <script src="GetCookie.js"></script>
 
 <script>
@@ -53,23 +60,17 @@ Go to <span onclick="pageJump()"><select id="select">selector</select></span>pag
 			document.getElementById("pagenum").innerHTML=pagenum;
 	}
 
-setSelectNumber();
-
-function setSelectNumber(){
-        var selectElement = document.getElementById("select");
+showThumbnail();
+function showThumbnail(){
+	var strThumbnail = '';
         for(var i = 0; i < pagefile.length ; i ++){
-                var option = document.createElement("option");
-                option.value = i;
-                option.innerText = i;
-                selectElement.appendChild(option);
-        }
+		strThumbnail += '<span onclick="pageJump(' + i + ')"> ' + i + ' /</span>';
+	}
+	document.getElementById("thumbnail").innerHTML= strThumbnail;
 }
 
-function pageJump(){
-        var selectElement = document.getElementById("select");
-        var option = selectElement.options;
-        var Idx = selectElement.selectedIndex;
-        pagenum = option[Idx].value;
+function pageJump(x){
+        pagenum = x;
 	show_page();
 }
 

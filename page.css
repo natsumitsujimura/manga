@@ -1,9 +1,11 @@
 td.back{
 	width:50%;
+	color:white;
 	background:red;
 }
 td.next{
 	width:50%;
+	color:white;
 	background:green;
 	text-align:right;
 }
