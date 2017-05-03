@@ -86,15 +86,14 @@ Goto page<br>
 		for(var i = 0; i < pagefile.length ; i ++){
 			//strThumbnail += '<span onclick="pageJump(' + i + ')"> ' + i + ' /</span>';
 			strThumbnail += 
-					'<nobr>' +
-					i +
 					'<img src="./data/' + 
 					mangafolder +
 					'/thumbnail/' + 
 					pagefile[i] + '" ' +
 					'style="width\:auto;height\:auto;"' +
-					'onclick="pageJump(' + i + ')" class="thumbnail">' +
-					'</nobr>'
+					'onclick="pageJump(' + i + ')" class="thumbnail" title="' +
+					i +
+					'">' 
 					;
 
 		}
