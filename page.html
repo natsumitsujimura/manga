@@ -20,7 +20,7 @@ current page is <span id="pagenum">pagenum</span>.<br>
 Goto page<br>
 <div id="thumbnail">thumbnail</div>
 
-<a href="index.html"><h1>back to index</h1></a>
+<div onclick="backToIndex()"><h1>back to index</h1></div>
 
 </body>
 
@@ -60,19 +60,33 @@ Goto page<br>
 			document.getElementById("pagenum").innerHTML=pagenum;
 	}
 
-showThumbnail();
-function showThumbnail(){
-	var strThumbnail = '';
-        for(var i = 0; i < pagefile.length ; i ++){
-		strThumbnail += '<span onclick="pageJump(' + i + ')"> ' + i + ' /</span>';
-	}
-	document.getElementById("thumbnail").innerHTML= strThumbnail;
-}
+	showThumbnail();
+	function showThumbnail(){
+		var strThumbnail = '';
+		for(var i = 0; i < pagefile.length ; i ++){
+			//strThumbnail += '<span onclick="pageJump(' + i + ')"> ' + i + ' /</span>';
+			strThumbnail += 
+					i +
+					'<img src="./data/' + 
+					mangafolder +
+					'/thumbnail/' + 
+					pagefile[i] + '" ' +
+					'style="width\:auto;height\:auto;"' +
+					'onclick="pageJump(' + i + ')"> '
+					;
 
-function pageJump(x){
-        pagenum = x;
-	show_page();
-}
+		}
+		document.getElementById("thumbnail").innerHTML= strThumbnail;
+	}
+
+	function pageJump(x){
+		pagenum = x;
+		show_page();
+	}
+
+	function backToIndex(){
+		location.href='index.html';	
+	}
 
 </script>
 <script>
