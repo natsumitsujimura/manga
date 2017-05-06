@@ -11,5 +11,6 @@ td.next{
 }
 img.thumbnail{
         vertical-align: top;
+	border: inset 10px #ff0000;
 }
 

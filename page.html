@@ -5,9 +5,10 @@
 
 <title></title>
 
-<link rel="stylesheet" type="text/css" href="page.css">
-
 <!-- don't read. I don't know why.
+<link rel="stylesheet" type="text/css" href="page.css">
+-->
+
 <style type="text/css">
 td.back{
         width:50%;
@@ -22,9 +23,16 @@ td.next{
 }
 img.thumbnail{
 	vertical-align: top;
+	width:auto;
+	height:auto;
+}
+img.thumbnailBorder{
+	vertical-align: top;
+	width:auto;
+	height:auto;
+	border: inset 10px #ff0000;
 }
 </style>
--->
 
 </head>
 <body>
@@ -78,21 +86,31 @@ Goto page<br>
 			window.scrollTo(0,0);
 			document.getElementById("page").innerHTML=str;
 			document.getElementById("pagenum").innerHTML=pagenum;
+
+			showThumbnail();
 	}
 
-	showThumbnail();
 	function showThumbnail(){
+
 		var strThumbnail = '';
+		var strBoarder = '';
+
 		for(var i = 0; i < pagefile.length ; i ++){
-			//strThumbnail += '<span onclick="pageJump(' + i + ')"> ' + i + ' /</span>';
+
+
+			if (i == pagenum) 
+				strBorder = 'thumbnailBorder';
+			else
+				strBorder = 'thumbnail';
+
 			strThumbnail += 
 					'<img src="./data/' + 
 					mangafolder +
 					'/thumbnail/' + 
 					pagefile[i] + '" ' +
-					'style="width\:auto;height\:auto;"' +
-					'onclick="pageJump(' + i + ')" class="thumbnail" title="' +
-					i +
+					'onclick="pageJump(' + i + ')" ' +
+					'class="' + strBorder + '" ' +
+					'title="' + i +
 					'">' 
 					;
 
