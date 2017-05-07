@@ -10,46 +10,85 @@
 -->
 
 <style type="text/css">
+table.navi{
+	width:100%;
+}
+td.pagenum{
+        width:10%;
+        color:black;
+        background:yellow;
+        text-align:center;
+}
 td.back{
-        width:50%;
+        width:45%;
         color:white;
         background:red;
 }
 td.next{
-        width:50%;
+        width:45%;
         color:white;
         background:blue;
         text-align:right;
 }
-img.thumbnail{
+img.page{
+	width:100%;
+	height:auto;
+}
+.thumbnail{
 	vertical-align: top;
 	width:auto;
 	height:auto;
 }
-img.thumbnailBorder{
+.thumbnailBorder{
 	vertical-align: top;
 	width:auto;
 	height:auto;
 	border: inset 10px #ff0000;
+}
+
+figure{
+	float:left; 
+	margin:0em 0px;
+	position:relative;
+}
+figurecaption{
+	position:absolute; 
+	left: 25%;
+	bottom: 0;
+	width: 50%; 
+	line-height: 1;
+	color: white;
+	background-color: black;
+	text-align: center; 
+	opacity: 0.75;
+	font-size:24px;
+}
+.bold{
+	background-color: red;
 }
 </style>
 
 </head>
 <body>
 
-<table width="100%"><tr><td class="back"><div onclick="pageUpDown(-1)">back</div></td><td class="next"><div onclick="pageUpDown(1)">next</div></td></tr></table>
+<table class="navi"><tr>
+	<td class="back" onclick="pageUpDown(-1)">back</td>
+	<td class="pagenum" name="pagenum">pagenum</td>
+	<td class="next" onclick="pageUpDown(1)">next</td>
+</tr></table>
 
 <div id="page"></div>
 
-<table width="100%"><tr><td class="back"><div onclick="pageUpDown(-1)">back</div></td><td class="next"><div onclick="pageUpDown(1)">next</div></td></tr></table>
-
-current page is <span id="pagenum">pagenum</span>.<br>
-Goto page<br>
+<table class="navi"><tr>
+	<td class="back" onclick="pageUpDown(-1)">back</td>
+	<td class="pagenum" name="pagenum">pagenum</td>
+	<td class="next" onclick="pageUpDown(1)">next</td>
+</tr></table>
+<br>
 <div id="thumbnail">thumbnail</div>
 
 <div onclick="backToIndex()"><h1>back to index</h1></div>
 
-</body>
 
 <script src="GetCookie.js"></script>
 
@@ -80,12 +119,16 @@ Goto page<br>
 				'<img src="./data/' + 
 				mangafolder +
 				'/' + 
-				pagefile[pagenum] + '" ' +
-				'style="width\:100%;height\:auto;">'
+				pagefile[pagenum] + '"  ' +
+				'class="page">'
 				;
 			window.scrollTo(0,0);
 			document.getElementById("page").innerHTML=str;
-			document.getElementById("pagenum").innerHTML=pagenum;
+
+			var namePagenum = document.getElementsByName("pagenum");
+			for (var i = 0; i < namePagenum.length; i++){
+				namePagenum[i].innerHTML = pagenum;
+			}
 
 			showThumbnail();
 	}
@@ -94,27 +137,36 @@ Goto page<br>
 
 		var strThumbnail = '';
 		var strBoarder = '';
+		var strCaption = '';
 
 		for(var i = 0; i < pagefile.length ; i ++){
 
 
-			if (i == pagenum) 
-				strBorder = 'thumbnailBorder';
-			else
-				strBorder = 'thumbnail';
+			if (i == pagenum) {
+				strCaption = 'bold';
+			}
+			else {
+				strCaption = '';
+			}
 
 			strThumbnail += 
+					'<figure>' +
+					'<figurecaption class="' + strCaption + '">' + 
+					i + 
+					'</figurecaption>' + //
 					'<img src="./data/' + 
 					mangafolder +
 					'/thumbnail/' + 
 					pagefile[i] + '" ' +
 					'onclick="pageJump(' + i + ')" ' +
-					'class="' + strBorder + '" ' +
 					'title="' + i +
-					'">' 
+					'">' + 
+					'</figure>'
 					;
 
 		}
+		strThumbnail += '<div style="clear:both;"></div>';		//release float
+
 		document.getElementById("thumbnail").innerHTML= strThumbnail;
 	}
 
@@ -131,5 +183,6 @@ Goto page<br>
 <script>
 show_page();
 </script>
+</body>
 </html>
 

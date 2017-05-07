@@ -22,7 +22,7 @@ if [ -e thumbnail ]; then
 	echo directry thumbnail exist in $0
 else
 	mkdir thumbnail
-	if ls *.jpg  > /dev/null 2>&1 ; then for i in *.jpg ;  do convert -thumbnail 90 "$i" thumbnail/"$i"; done; fi
-	if ls *.jpeg > /dev/null 2>&1 ; then for i in *.jpeg;  do convert -thumbnail 90 "$i" thumbnail/"$i"; done; fi
-	if ls *.png  > /dev/null 2>&1 ; then for i in *.png ;  do convert -thumbnail 90 "$i" thumbnail/"$i"; done; fi
+	if ls *.jpg  > /dev/null 2>&1 ; then for i in *.jpg ;  do convert -thumbnail 180 "$i" thumbnail/"$i"; done; fi
+	if ls *.jpeg > /dev/null 2>&1 ; then for i in *.jpeg;  do convert -thumbnail 180 "$i" thumbnail/"$i"; done; fi
+	if ls *.png  > /dev/null 2>&1 ; then for i in *.png ;  do convert -thumbnail 180 "$i" thumbnail/"$i"; done; fi
 fi
