@@ -18,6 +18,7 @@
 <body>
 
 <img src="./data/lina.jpg" style="display:block;margin-left:auto;margin-right:auto;width:50%;height:auto;">
+<div id="bookmarkList">[作者] タイトル ページ</div>
 <div id="folderList">[作者] タイトル</div>
 ソースコード：<a href="https://github.com/natsumitsujimura/manga">https://github.com/natsumitsujimura/manga</a><br>
 <br>
@@ -51,10 +52,28 @@
 </td></tr></table>
 </body>
 
-<!-- folder index read -->
-<script src="./data/folders.js"></script>
+<script src="GetCookie.js"></script>
 
 <script>
+	// read folder index
+	document.write('<script src="./data/folders.js"><\/script>');
+
+        // get bookmark from Cookie
+        var bookmarkFolder = GetCookie('bookmarkFolder');
+        var bookmarkPage   = GetCookie('bookmarkPage');
+
+	// display bookmarkList
+	var bookmarkList = '';
+		bookmarkList += 
+			'<div id="view" onclick=\'manga_listing("' + bookmarkFolder + '",' + bookmarkPage + ')\'>' + 
+			bookmarkFolder + '  page ' + bookmarkPage + 
+			'</div>'
+			;
+	document.getElementById("bookmarkList").innerHTML=bookmarkList;
+
+</script>
+<script>
+	// display folder list
 	// sample ./data/folders.js
 	//	var folders = new Array();
 	//	folders[0] = "[作者] タイトル";
@@ -62,7 +81,7 @@
 	var folderList = '<h1>';
 	for (i=0; i < folders.length ; i++){
 		folderList += 
-			'<div id="view" onclick=\'manga_listing("' + folders[i] + '")\'>' + 
+			'<div id="view" onclick=\'manga_listing("' + folders[i] + '",0)\'>' + 
 			folders[i] + 
 			'</div>'
 			;
@@ -72,9 +91,17 @@
 	document.getElementById("folderList").innerHTML=folderList;
 
 
-	function manga_listing(x){
+	function manga_listing(x,y){
 		mangafolder = x;	
-		document.cookie='mangafolder=' + encodeURIComponent(mangafolder);
+		mangapage   = y;
+
+		// set expire period 30 days
+		var expire = new Date();
+		expire.setTime( expire.getTime() + 1000 * 60 * 60 * 24 * 30);
+
+		document.cookie='mangafolder=' + encodeURIComponent(mangafolder) + '; expires=' + expire.toUTCString() ;
+		document.cookie='mangapage='   + encodeURIComponent(mangapage)   + '; expires=' + expire.toUTCString() ;
+
 		location.href='./page.html';
 	}
 </script>

@@ -10,6 +10,13 @@
 -->
 
 <style type="text/css">
+table.bookmark{
+	width:50%;
+}
+td.bookmark{
+	color:white;
+	background:blue;
+}
 table.navi{
 	width:100%;
 }
@@ -85,6 +92,10 @@ figurecaption{
 	<td class="next" onclick="pageUpDown(1)">next</td>
 </tr></table>
 <br>
+<table class="bookmark"><tr>
+	<td class="bookmark" onclick="addBookmark()">bookmark</td>
+</tr></table>
+<br>
 <div id="thumbnail">thumbnail</div>
 
 <div onclick="backToIndex()"><h1>back to index</h1></div>
@@ -95,11 +106,25 @@ figurecaption{
 <script>
 	// get target folder from Cookie and load pages.js from the folder
 	var mangafolder = GetCookie('mangafolder');
+	var pagenum     = GetCookie('mangapage');
+
 	document.write('<script src="./data/' + mangafolder +'/pages.js"><\/script>');
+
 	document.title = mangafolder;
 </script>
 <script>
-	var pagenum = 0;
+
+	function addBookmark(){
+		bookmarkFolder = mangafolder; 
+		bookmarkPage   = pagenum;
+
+                // set expire period 30 days
+                var expire = new Date();
+                expire.setTime( expire.getTime() + 1000 * 60 * 60 * 24 * 30);
+
+                document.cookie='bookmarkFolder=' + encodeURIComponent(bookmarkFolder) + '; expires=' + expire.toUTCString() ;
+                document.cookie='bookmarkPage=' + encodeURIComponent(bookmarkPage) + '; expires=' + expire.toUTCString() ;
+	}
 
 	function pageUpDown(x) {
 
