@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "$*"
 if [ -e pages.js ]; then
-echo pages.js exist in $0
+echo pages.js exist
 else
 	echo pages.js not exist
 
@@ -23,6 +23,7 @@ fi
 if [ -e thumbnail ]; then
 	echo directry thumbnail exist
 else
+	echo directry thumbnail not exist
 	mkdir thumbnail
 	if ls *.jpg  > /dev/null 2>&1 ; then for i in *.jpg ;  do convert -thumbnail 180 "$i" thumbnail/"$i"; done; fi
 	if ls *.jpeg > /dev/null 2>&1 ; then for i in *.jpeg;  do convert -thumbnail 180 "$i" thumbnail/"$i"; done; fi
