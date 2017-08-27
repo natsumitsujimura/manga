@@ -3,6 +3,8 @@ cd "$*"
 if [ -e pages.js ]; then
 echo pages.js exist in $0
 else
+	echo pages.js not exist
+
 	ls > .temp
 	awk -f - .temp <<EOS > pages.js
 	BEGIN{
@@ -19,7 +21,7 @@ fi
 #generate thumbnail file in subdirectory 'thumbnail'
 
 if [ -e thumbnail ]; then
-	echo directry thumbnail exist in $0
+	echo directry thumbnail exist
 else
 	mkdir thumbnail
 	if ls *.jpg  > /dev/null 2>&1 ; then for i in *.jpg ;  do convert -thumbnail 180 "$i" thumbnail/"$i"; done; fi
