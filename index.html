@@ -78,15 +78,15 @@
 	//	var folders = new Array();
 	//	folders[0] = "[作者] タイトル";
 
-	var folderList = '<h1>';
+	var folderList = '';
 	for (i=0; i < folders.length ; i++){
 		folderList += 
 			'<div id="view" onclick=\'manga_listing("' + folders[i] + '",0)\'>' + 
-			folders[i] + 
+			'<img src="data/' + folders[i] + '/thumbnail/' + thumbnail[i] + '" title="' + folders[i] + '">' + 
+//			folders[i] + 
 			'</div>'
 			;
 	}
-	folderList += '</h1>';
 
 	document.getElementById("folderList").innerHTML=folderList;
 
